@@ -78,6 +78,8 @@ document.querySelector(".btn-hold").addEventListener("click", function () {
         .classList.add("winner");
       document.querySelector(".player-1-panel").classList.remove("active");
       document.querySelector(".player-0-panel").classList.remove("active");
+      document.getElementById("current-0").textContent = "0";
+      document.getElementById("current-1").textContent = "0";
     } else {
       // toglogchdiin eeljiiig solino.
       switchToNextPlayer();
