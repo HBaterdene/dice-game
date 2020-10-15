@@ -1,5 +1,5 @@
 // togloom duussan eseh shalgah
-var isNewGame;
+var isNewGame = true;
 //  Тоглогчын ээлжийг хадгалах хувьсагч,  нэгдүгэр тоглогчийг 0, хоёрдугаар тоглогчыг 1 гэж тэмдэглэе
 var activePlayer = 0;
 // Тоглогчдын цуглуулсан оноог хадгалах хувьсагч
