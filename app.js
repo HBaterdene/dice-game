@@ -31,21 +31,45 @@ document.querySelector(".btn-roll").addEventListener("click", function () {
     roundScore = roundScore + diceNumber;
     document.getElementById("current-" + activePlayer).textContent = roundScore;
   } else {
-    // toglogchiin onoog teglene.
-    roundScore = 0;
-    document.getElementById("current-" + activePlayer).textContent = 0;
-    //ulaan tsegiig huraana
-    document
-      .querySelector(".player-" + activePlayer + "-panel")
-      .classList.toggle("active");
-    // 1buulaa toglogchiin eeljiig ene heseg solij ogno.
-    activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
-    // ulaan tsegiig shiljvvleh
-
-    document
-      .querySelector(".player-" + activePlayer + "-panel")
-      .classList.toggle("active");
-    // shoog tvr alga bolgono
-    diceDom.style.display = none;
+    switchToNextPlayer();
   }
 });
+
+// hold towchnii event listener
+document.querySelector(".btn-hold").addEventListener("click", function () {
+  // ug toglogchiin cugluulsan eeljiiin onoog global onoon dotor nemj ogno
+  scores[activePlayer] = scores[activePlayer] + roundScore;
+  //delgetsen deer onoog oorchilno.
+  document.getElementById("score-" + activePlayer).textContent =
+    scores[activePlayer];
+  if (scores[activePlayer] >= 100) {
+    document.getElementById("name-" + activePlayer).textContent = "Winner!";
+    document
+      .querySelector(".player-" + activePlayer + "-panel")
+      .classList.add("winner");
+  } else {
+    // toglogchdiin eeljiiig solino.
+    switchToNextPlayer();
+  }
+});
+// toglogchiin eljiig shiljvvlne
+function switchToNextPlayer() {
+  // toglogchiin onoog teglene.
+  roundScore = 0;
+  document.getElementById("current-" + activePlayer).textContent = 0;
+  //ulaan tsegiig huraana
+  document
+    .querySelector(".player-" + activePlayer + "-panel")
+    .classList.toggle("active");
+  // 1buulaa toglogchiin eeljiig ene heseg solij ogno.
+  activePlayer === 0 ? (activePlayer = 1) : (activePlayer = 0);
+  // ulaan tsegiig shiljvvleh
+
+  document
+    .querySelector(".player-" + activePlayer + "-panel")
+    .classList.toggle("active");
+  // shoog tvr alga bolgono
+  diceDom.style.display = "none";
+}
+// shine togloom ehlvvleh towchnii event listener
+document.querySelector(".btn-new").addEventListener("click", function);
