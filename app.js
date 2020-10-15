@@ -1,3 +1,5 @@
+// togloom duussan eseh shalgah
+var isNewGame;
 //  Тоглогчын ээлжийг хадгалах хувьсагч,  нэгдүгэр тоглогчийг 0, хоёрдугаар тоглогчыг 1 гэж тэмдэглэе
 var activePlayer = 0;
 // Тоглогчдын цуглуулсан оноог хадгалах хувьсагч
@@ -14,6 +16,7 @@ diceDom.style.display = "none";
 
 // shine togloom ehlvvleh towchnii event listener
 document.querySelector(".btn-new").addEventListener("click", function () {
+  isNewGame = true;
   //  Тоглогчын ээлжийг хадгалах хувьсагч,  нэгдүгэр тоглогчийг 0, хоёрдугаар тоглогчыг 1 гэж тэмдэглэе
   activePlayer = 0;
   // Тоглогчдын цуглуулсан оноог хадгалах хувьсагч
@@ -37,41 +40,48 @@ document.querySelector(".btn-new").addEventListener("click", function () {
 });
 // shoog shideh event listener
 document.querySelector(".btn-roll").addEventListener("click", function () {
-  //1-6 dotorh sanamsargvi neg too gargaj  avna.
-  var diceNumber = Math.floor(Math.random() * 6 + 1);
+  if (isNewGame) {
+    //1-6 dotorh sanamsargvi neg too gargaj  avna.
+    var diceNumber = Math.floor(Math.random() * 6 + 1);
 
-  // shoonii zurgiig web deer gargah
-  diceDom.style.display = "block";
-  // sanamsargvi toond tohirsin shoonii zurgiig web deer gargaj irne.
-  diceDom.src = "dice-" + diceNumber + ".png";
-  // toglogchiin eeljiin onoog oorchilno.
-  // buuusan too ni 1 eees ylgaatai idewhtei toglogchiin eeljiin onoog nemegdvvlne.
-  if (diceNumber !== 1) {
-    //1ees ylgaatai too buulaa buusan toog toglogchid nemj ogno.
-    roundScore = roundScore + diceNumber;
-    document.getElementById("current-" + activePlayer).textContent = roundScore;
-  } else {
-    switchToNextPlayer();
+    // shoonii zurgiig web deer gargah
+    diceDom.style.display = "block";
+    // sanamsargvi toond tohirsin shoonii zurgiig web deer gargaj irne.
+    diceDom.src = "dice-" + diceNumber + ".png";
+    // toglogchiin eeljiin onoog oorchilno.
+    // buuusan too ni 1 eees ylgaatai idewhtei toglogchiin eeljiin onoog nemegdvvlne.
+    if (diceNumber !== 1) {
+      //1ees ylgaatai too buulaa buusan toog toglogchid nemj ogno.
+      roundScore = roundScore + diceNumber;
+      document.getElementById(
+        "current-" + activePlayer
+      ).textContent = roundScore;
+    } else {
+      switchToNextPlayer();
+    }
   }
 });
 
 // hold towchnii event listener
 document.querySelector(".btn-hold").addEventListener("click", function () {
-  // ug toglogchiin cugluulsan eeljiiin onoog global onoon dotor nemj ogno
-  scores[activePlayer] = scores[activePlayer] + roundScore;
-  //delgetsen deer onoog oorchilno.
-  document.getElementById("score-" + activePlayer).textContent =
-    scores[activePlayer];
-  if (scores[activePlayer] >= 10) {
-    document.getElementById("name-" + activePlayer).textContent = "Winner!";
-    document
-      .querySelector(".player-" + activePlayer + "-panel")
-      .classList.add("winner");
-    document.querySelector(".player-1-panel").classList.remove("active");
-    document.querySelector(".player-0-panel").classList.remove("active");
-  } else {
-    // toglogchdiin eeljiiig solino.
-    switchToNextPlayer();
+  if (isNewGame) {
+    // ug toglogchiin cugluulsan eeljiiin onoog global onoon dotor nemj ogno
+    scores[activePlayer] = scores[activePlayer] + roundScore;
+    //delgetsen deer onoog oorchilno.
+    document.getElementById("score-" + activePlayer).textContent =
+      scores[activePlayer];
+    if (scores[activePlayer] >= 100) {
+      document.getElementById("name-" + activePlayer).textContent = "Winner!";
+      isNewGame = false;
+      document
+        .querySelector(".player-" + activePlayer + "-panel")
+        .classList.add("winner");
+      document.querySelector(".player-1-panel").classList.remove("active");
+      document.querySelector(".player-0-panel").classList.remove("active");
+    } else {
+      // toglogchdiin eeljiiig solino.
+      switchToNextPlayer();
+    }
   }
 });
 // toglogchiin eljiig shiljvvlne
