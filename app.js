@@ -4,10 +4,6 @@ var activePlayer = 0;
 var scores = [0, 0];
 //Тоглогчын ээлжиндээ цуглуулж байгаа оноог хадглах хувьсагч
 var roundScore = 0;
-//Шоо аль талаараа буусныг хадгалах хувьсагч хэрэгтэй, 1-6 гэсэн утгыг энэ хувьсагчид санамсаргүйгээр үүсгэж өгнө.
-//var diceNumber = Math.floor(Math.random() * 6 + 1);
-
-//<div class="player-score" id="score-0">43</div>
 
 document.getElementById("score-0").textContent = "0";
 document.getElementById("score-1").textContent = "0";
@@ -15,6 +11,30 @@ document.getElementById("current-0").textContent = "0";
 document.getElementById("current-1").textContent = "0";
 var diceDom = document.querySelector(".dice");
 diceDom.style.display = "none";
+
+// shine togloom ehlvvleh towchnii event listener
+document.querySelector(".btn-new").addEventListener("click", function () {
+  //  Тоглогчын ээлжийг хадгалах хувьсагч,  нэгдүгэр тоглогчийг 0, хоёрдугаар тоглогчыг 1 гэж тэмдэглэе
+  activePlayer = 0;
+  // Тоглогчдын цуглуулсан оноог хадгалах хувьсагч
+  scores = [0, 0];
+  //Тоглогчын ээлжиндээ цуглуулж байгаа оноог хадглах хувьсагч
+  roundScore = 0;
+
+  document.getElementById("score-0").textContent = "0";
+  document.getElementById("score-1").textContent = "0";
+  document.getElementById("current-0").textContent = "0";
+  document.getElementById("current-1").textContent = "0";
+  diceDom = document.querySelector(".dice");
+  diceDom.style.display = "none";
+  //toglogchiin neriig butsaaj gargah
+  document.getElementById("name-0").textContent = "Player 1";
+  document.getElementById("name-1").textContent = "Player 2";
+  document.querySelector(".player-1-panel").classList.remove("winner");
+  document.querySelector(".player-0-panel").classList.remove("winner");
+  document.querySelector(".player-1-panel").classList.remove("active");
+  document.querySelector(".player-0-panel").classList.add("active");
+});
 // shoog shideh event listener
 document.querySelector(".btn-roll").addEventListener("click", function () {
   //1-6 dotorh sanamsargvi neg too gargaj  avna.
@@ -42,11 +62,13 @@ document.querySelector(".btn-hold").addEventListener("click", function () {
   //delgetsen deer onoog oorchilno.
   document.getElementById("score-" + activePlayer).textContent =
     scores[activePlayer];
-  if (scores[activePlayer] >= 100) {
+  if (scores[activePlayer] >= 10) {
     document.getElementById("name-" + activePlayer).textContent = "Winner!";
     document
       .querySelector(".player-" + activePlayer + "-panel")
       .classList.add("winner");
+    document.querySelector(".player-1-panel").classList.remove("active");
+    document.querySelector(".player-0-panel").classList.remove("active");
   } else {
     // toglogchdiin eeljiiig solino.
     switchToNextPlayer();
@@ -71,5 +93,3 @@ function switchToNextPlayer() {
   // shoog tvr alga bolgono
   diceDom.style.display = "none";
 }
-// shine togloom ehlvvleh towchnii event listener
-document.querySelector(".btn-new").addEventListener("click", function);
